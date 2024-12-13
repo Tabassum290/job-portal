@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { AuthContext } from '../Provider/AuthProvider';
 
 const Navbar = () => {
+  const {user,SignOut}= useContext(AuthContext);
+  const handleSignOut = ()=>{
+    SignOut()
+    .then(()=>{
+      console.log("sign out");
+    })
+    .catch(err=>{
+  console.log(err.code,err.message);
+    })
+  }
     const links = <>
     <NavLink to='/'>Home</NavLink>
     </>
     return (
-        <div className='max-w-7xl mx-auto'>
-            <div className="navbar bg-base-100 py-8 font-semibold">
+        <div className='sticky top-0 z-10 border-2 bg-white'>
+            <div className="navbar bg-base-100 p-4 font-semibold max-w-7xl mx-auto ">
   <div className="navbar-start">
     <div className="dropdown">
       <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -30,7 +41,7 @@ const Navbar = () => {
        {links}
       </ul>
     </div>
-    <a className="btn btn-ghost text-xl">Job Box</a>
+    <a className="btn btn-ghost text-xl"><img className='w-12' src="https://img.icons8.com/?size=48&id=FOG37TbrcTui&format=png" alt="" />Job Box</a>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
@@ -38,8 +49,12 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end flex gap-6">
-  <Link to="/register" className='underline hover:text-blue-700'>Register</Link>
-  <Link to="/signin" className='btn bg-blue-700 text-white'>Sign In</Link>
+  {
+  user? <button onClick={handleSignOut} className='btn'>SignOut</button>:<>
+    <Link to="/register" className='underline hover:text-blue-700'>Register</Link>
+    <Link to="/signin" className='btn bg-blue-700 text-white'>Sign In</Link>
+  </>
+  }
   </div>
 </div>
         </div>

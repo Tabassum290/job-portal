@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Navbar from '../Components/Navbar';
 import { Link } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { toast } from 'react-toastify';
+import { AuthContext } from '../Provider/AuthProvider';
+import Footer from '../Components/Footer';
 const Register = () => {
-
+const { createNewUser,user,setUser,signinWithGoogle }= useContext(AuthContext);
 const handleRegister=e=>{
+  
   e.preventDefault();
   const name = e.target.name.value;
   const username = e.target.username.value;
@@ -25,9 +28,23 @@ const handleRegister=e=>{
     toast.error("Passwords do not match.");
     return;
   }
+createNewUser(email,password)
+.then(result =>{
+  setUser(result.user)
+})
+.catch(err =>{
+  console.log(err.code,err.message)
+})
+}
 
-  console.log("Form submitted successfully!");
-
+const handleGoogle=()=>{
+  signinWithGoogle()
+  .then(result=>{
+    setUser(result.user)
+  })
+  .catch(err=>{
+    console.log(err.code)
+  })
 }
 
 return (
@@ -39,7 +56,7 @@ return (
 <p className='text-bold text-blue-700'>Register</p>
 <h1 className='lg:text-4xl text-2xl font-bold'>Start For Free Today</h1>
 <p className='text-gray-600'>Access to all features. No credit card required.</p>
-<button className='btn hover:text-blue-700 border-1 border-black bg-white'><span className='text-2xl'><FcGoogle /></span>Sign up with Google</button>
+<button onClick={handleGoogle} className='btn hover:text-blue-700 border-1 border-black bg-white'><span className='text-2xl'><FcGoogle /></span>Sign up with Google</button>
 <p className='text-center font-semibold text-gray-700'>Or Continue With</p>
 </div>
 <form onSubmit={handleRegister} className='max-w-xl mx-auto flex flex-col gap-6 p-6'>
@@ -131,6 +148,7 @@ return (
 />
 </div>
 </section>
+<Footer/>
 </div>
     );
 };
