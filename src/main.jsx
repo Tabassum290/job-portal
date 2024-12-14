@@ -10,10 +10,26 @@ import 'react-toastify/dist/ReactToastify.css';
 import AuthProvider from './Provider/AuthProvider.jsx'
 import JobDetails from './Pages/JobDetails.jsx'
 import PrivateRoute from './Private/PrivateRoute.jsx'
+import JobApply from './Pages/JobApply.jsx'
+import MyApplication from './Pages/MyApplication.jsx'
+import AddJob from './Pages/AddJob.jsx'
 const router = createBrowserRouter([
   {
     path:'/',
     element:<Home/>,
+  },
+  {
+    path:'/jobapply/:id',
+    element:<PrivateRoute><JobApply/></PrivateRoute>,
+    loader:({params})=>fetch(`http://localhost:4000/jobs/${params.id}`)
+  },
+  {
+    path:'/myapply',
+    element:<PrivateRoute><MyApplication/></PrivateRoute>,
+  },
+  {
+    path:'/addjob',
+    element:<PrivateRoute><AddJob/></PrivateRoute>,
   },
   {
     path:'/signin',
@@ -25,7 +41,7 @@ const router = createBrowserRouter([
   },
   {
     path:'/jobs/:id',
-    element:<JobDetails/>,
+    element:<PrivateRoute><JobDetails/></PrivateRoute>,
     loader:({params})=>fetch(`http://localhost:4000/jobs/${params.id}`)
   },
 ])

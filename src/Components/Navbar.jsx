@@ -3,9 +3,9 @@ import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 
 const Navbar = () => {
-  const {user,SignOut}= useContext(AuthContext);
-  const handleSignOut = ()=>{
-    SignOut()
+  const {user,signOutUser}= useContext(AuthContext);
+  const handleSignOut = () =>{
+    signOutUser()
     .then(()=>{
       console.log("sign out");
     })
@@ -15,6 +15,8 @@ const Navbar = () => {
   }
     const links = <>
     <NavLink to='/'>Home</NavLink>
+    <NavLink to='/myapply' className={'mx-6'}>My Application</NavLink>
+    <NavLink to='/addjob'>Add Job</NavLink>
     </>
     return (
         <div className='sticky top-0 z-10 border-2 bg-white'>
@@ -44,7 +46,7 @@ const Navbar = () => {
     <a className="btn btn-ghost text-xl"><img className='w-12' src="https://img.icons8.com/?size=48&id=FOG37TbrcTui&format=png" alt="" />Job Box</a>
   </div>
   <div className="navbar-center hidden lg:flex">
-    <ul className="menu menu-horizontal px-1">
+    <ul className="menu menu-horizontal px-1 text-lg">
      {links}
     </ul>
   </div>

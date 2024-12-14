@@ -5,11 +5,11 @@ const Banner = () => {
     return (
         <div className='bg-blue-100 max-w-7xl mx-auto py-8'>
             <section className='lg:flex justify-between'>
-                <div className='p-8'>
+                <div className='p-4 lg:p-8'>
                   <h1 className='text-3xl lg:text-5xl font-bold'>The <span className='text-blue-600'>Easiest Way </span>
                    to Get Your New Job</h1>
                    <p className='font-semibold my-4 text-lg text-gray-700'>Each month, more than 3 million job seekers turn to website in their search for work, making over 140,000 applications every single day</p>
- <div className='rounded-lg my-6 '>
+ <div className='rounded-lg my-6'>
   <div className="join shadow-md border-none">
   <select className="select join-item">
     <option disabled selected>Industry</option>
@@ -17,16 +17,10 @@ const Banner = () => {
     <option>Drama</option>
     <option>Action</option>
   </select>
-  <select className="select join-item">
-    <option disabled selected>Location</option>
-    <option>Sci-fi</option>
-    <option>Drama</option>
-    <option>Action</option>
-  </select>
   <div>
 <input className="input join-item" placeholder="Your Keyboard" />
     </div>
-  <div className="indicator">
+  <div className="join">
     <button className="btn bg-blue-600 text-white">Search</button>
   </div>
 </div>

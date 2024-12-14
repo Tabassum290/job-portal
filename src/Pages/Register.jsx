@@ -1,15 +1,18 @@
 import React, { useContext } from 'react';
 import Navbar from '../Components/Navbar';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../Provider/AuthProvider';
 import Footer from '../Components/Footer';
+
 const Register = () => {
 const { createNewUser,user,setUser,signinWithGoogle }= useContext(AuthContext);
-const handleRegister=e=>{
-  
+const navigate = useNavigate();
+const location = useLocation();
+const from = location.state || '/';
+const handleRegister = e =>{
   e.preventDefault();
   const name = e.target.name.value;
   const username = e.target.username.value;
@@ -17,7 +20,6 @@ const handleRegister=e=>{
   const password= e.target.password.value;
   const repass = e.target.repass.value;
   const user={name,username,email,password,repass};
-  console.log(user); 
 
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
   if (!passwordRegex.test(password)) {
@@ -30,7 +32,8 @@ const handleRegister=e=>{
   }
 createNewUser(email,password)
 .then(result =>{
-  setUser(result.user)
+  navigate(from);
+  setUser(result.user);
 })
 .catch(err =>{
   console.log(err.code,err.message)
@@ -40,6 +43,7 @@ createNewUser(email,password)
 const handleGoogle=()=>{
   signinWithGoogle()
   .then(result=>{
+    navigate(from);
     setUser(result.user)
   })
   .catch(err=>{

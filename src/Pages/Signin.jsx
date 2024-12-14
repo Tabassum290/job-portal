@@ -1,13 +1,17 @@
 import React, { useContext } from 'react';
 import Navbar from '../Components/Navbar';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { AuthContext } from '../Provider/AuthProvider';
 import Footer from '../Components/Footer';
+import { toast } from 'react-toastify';
 const Signin = () => {
 const {user, SignInUser,setUser,signinWithGoogle} = useContext(AuthContext);
-  const handleSignin=e=>{
+const navigate = useNavigate()
+const location = useLocation();
+const from = location.state || '/';
+  const handleSignin = e =>{
     e.preventDefault();
   const email= e.target.email.value;
   const password=e.target.password.value;
@@ -17,9 +21,12 @@ const {user, SignInUser,setUser,signinWithGoogle} = useContext(AuthContext);
   SignInUser(email,password)
   .then(result =>{
     setUser(result.user);
+    navigate(from);
+    toast.success("Welcome to Job Portal")
   })
 .catch(err=>{
 console.log(err.code,err.message)
+toast.error(`Error Occured${err.code}.Please Try Again`)
 })
   }
 
@@ -27,8 +34,11 @@ console.log(err.code,err.message)
     signinWithGoogle()
     .then(result=>{
       setUser(result.user)
+      navigate(from);
+      toast.success("Welcome to Job Portal")
     })
     .catch(err=>{
+      toast.error(`Error Occured${err.code}.Please Try Again`)
       console.log(err.code)
     })
   }

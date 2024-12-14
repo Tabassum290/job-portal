@@ -1,5 +1,5 @@
-import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useLoaderData } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { MdDriveFileRenameOutline, MdOutlineBusinessCenter, MdOutlineMarkEmailUnread, MdOutlineVerified } from 'react-icons/md';
@@ -9,9 +9,22 @@ import { RiMoneyDollarCircleLine } from 'react-icons/ri';
 import { TfiCup } from 'react-icons/tfi';
 import { CiLocationOn } from 'react-icons/ci';
 import { FaTableList } from 'react-icons/fa6';
+import Swal from 'sweetalert2';
 
 const JobDetails = () => {
 const {_id,applicationDeadline,category,company,company_logo,description,hr_email,hr_name,jobType,location,title,status ,requirements,salaryRange } = useLoaderData();
+const [isJobSaved, setIsJobSaved] = useState(false);
+const handleSaveJob =(_id)=>{
+
+  Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Your Job has been saved",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          setIsJobSaved(true);
+}
 
     return (
         <div>
@@ -29,7 +42,7 @@ const {_id,applicationDeadline,category,company,company_logo,description,hr_emai
     </div>
 </div>
 <div>
-<button className="btn btn-lg text-white bg-blue-700 hover:bg-blue-950 px-8 my-6 lg:my-0"><MdOutlineVerified />Apply Now</button>
+<Link to={`/jobapply/${_id}`}  className="btn btn-lg text-white bg-blue-700 hover:bg-blue-950 px-8 my-6 lg:my-0"><MdOutlineVerified />Apply Now</Link>
 </div>
 </div>
 <hr className='my-6'></hr>
@@ -74,8 +87,8 @@ Proficiency in a variety of design tools such as Figma, Photoshop, Illustrator, 
 </div>
 </div>
 <div className='flex gap-6 my-4'>
-<button className="btn btn-lg text-white bg-blue-700 hover:bg-blue-950">Apply Now</button>
-<button className="btn btn-lg text-gray-600 btn-outline hover:bg-blue-950">Save Job</button>
+<Link to={`/jobapply/${_id}`} className="btn btn-lg text-white bg-blue-700 hover:bg-blue-950">Apply Now</Link>
+<button onClick={() => handleSaveJob(_id)} className={`btn btn-lg text-gray-600 btn-outline ${isJobSaved ? 'cursor-not-allowed bg-gray-300' : 'hover:bg-blue-950'}`}disabled={isJobSaved} >Save Job</button>
 </div>
 
            </section>

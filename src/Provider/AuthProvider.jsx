@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndP
 
 export const AuthContext = createContext(null);
 const provider = new GoogleAuthProvider();
+
 const AuthProvider = ({children}) => {
     const [user,setUser] = useState(null);
 const [loading,setLoading] = useState(true);
@@ -22,7 +23,9 @@ useEffect(()=>{
         setUser(currentUser);
         setLoading(false);
     });
-    return unSubscribe();
+    return()=>{
+        unSubscribe()
+    };
 },[])
 
 const signinWithGoogle = ()=>{
@@ -30,23 +33,20 @@ const signinWithGoogle = ()=>{
     return signInWithPopup(auth,provider);
 }
 
-const SignOut = ()=>{
+const signOutUser = ()=>{
     setLoading(true);
     return signOut(auth);
    
 }
-// const LoginWithGoogle = ()=>{
-    // setLoading(true);
-// return
-// }
 
     const authInfo = {
         user,
         setUser,
         createNewUser,
         SignInUser,
-        SignOut,
+        signOutUser,
         signinWithGoogle,
+        loading,
     }
     return (
         <AuthContext.Provider value={authInfo}>
