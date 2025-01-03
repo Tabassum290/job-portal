@@ -6,6 +6,7 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { AuthContext } from '../Provider/AuthProvider';
 import Footer from '../Components/Footer';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 const Signin = () => {
 const {user, SignInUser,setUser,signinWithGoogle} = useContext(AuthContext);
 const navigate = useNavigate()
@@ -20,7 +21,13 @@ const from = location.state || '/';
 
   SignInUser(email,password)
   .then(result =>{
-    setUser(result.user);
+    // setUser(result.user);
+    console.log(result.user.email);
+    const user = {email : email};
+    axios.post('http://localhost:4000/jwt',user, { withCredentials: true })
+    .then(data=> {
+      console.log(data);
+    })
     navigate(from);
     toast.success("Welcome to Job Portal")
   })

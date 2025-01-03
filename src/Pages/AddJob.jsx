@@ -1,12 +1,12 @@
 import React from 'react';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
-import { iterate } from 'localforage';
 import Swal from 'sweetalert2';
 import UseAuth from '../Hooks/UseAuth';
-
+import {  useNavigate } from 'react-router-dom';
 const AddJob = () => {
 const {user} = UseAuth();
+const navigate = useNavigate();
 const handleForm = e =>{
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -40,6 +40,7 @@ body: JSON.stringify(newJob)
     if(data.insertedId){
                        Swal.fire("Your new job application post has been added.", "success");
     }
+    navigate('/mypostedjob');
 })
 }
 

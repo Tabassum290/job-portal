@@ -26,7 +26,7 @@ const HotjobCards = ({job}) => {
     <p>{description}</p>
     <div className='flex gap-2 flex-wrap'>
         {
-            requirements.map(skill=><p key={skill._id} className='border-2 rounded-md bg-green-200 p-1 text-center hover:text-blue-700'>{skill}</p>)
+            requirements.map(skill =><p key={skill._id} className='border-2 rounded-md bg-green-200 p-1 text-center hover:text-blue-700'>{skill}</p>)
         }
     </div>
 

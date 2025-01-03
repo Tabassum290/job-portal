@@ -15,8 +15,9 @@ const Navbar = () => {
   }
     const links = <>
     <NavLink to='/'>Home</NavLink>
-    <NavLink to='/myapply' className={'mx-6'}>My Application</NavLink>
+    <NavLink to='/myapply' className={'lg:mx-6'}>My Application</NavLink>
     <NavLink to='/addjob'>Add Job</NavLink>
+    <NavLink to='/mypostedjob' className={'lg:mx-6'}>My Posted Job</NavLink>
     </>
     return (
         <div className='sticky top-0 z-10 border-2 bg-white'>
@@ -39,7 +40,7 @@ const Navbar = () => {
       </div>
       <ul
         tabIndex={0}
-        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+        className="menu menu-sm dropdown-content bg-base-100 rounded-box  mt-3 w-52 shadow">
        {links}
       </ul>
     </div>
